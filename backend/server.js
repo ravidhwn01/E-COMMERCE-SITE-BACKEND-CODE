@@ -1,6 +1,12 @@
 const app = require("./app");
 const dotenv  =  require("dotenv");
 const connectDatabase = require("./config/database");
+//handling uncaught exception
+process.on("uncaughtException", (err) => {
+        console.log(`ERROR: ${err.message}`);
+        console.log("Shutting down due to uncaught exception");
+        process.exit(1);
+});
 //config
 dotenv.config({ path: "backend/config/config.env" });
 
@@ -11,7 +17,7 @@ connectDatabase();
         console.log(`server is working on http://localhost:${process.env.PORT}`);
 })
 
-console.log(youtube) // handle krna hai isko next lecture me
+// console.log(youtube) // handle krna hai isko next lecture me
 
 //unhandled promise rejection
 process.on("unhandledRejection", (err) => {
