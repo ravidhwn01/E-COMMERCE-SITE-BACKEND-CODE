@@ -1,8 +1,8 @@
 const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorhandler")
-// create product -- admin ke liye
 const  catchAsyncError = require("../middleware/catchAsyncError");
 const APIFeatures = require("../utils/apiFeatures");
+// create product -- admin ke liye
 exports.createProduct = catchAsyncError(async (req, res, next) => {
   const product = await Product.create(req.body);
   res.status(201).json({
