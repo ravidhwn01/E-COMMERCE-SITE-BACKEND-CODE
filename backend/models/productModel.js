@@ -61,10 +61,16 @@ const productSchema = new mongoose.Schema({
       }
     }
   ],
+  // user:{
+  //   type:mongoose.Schema.ObjectId,
+  //   ref:"User",
+  //   required:true
+    
+  // },
   createdAt: {
     type: Date,
     default: Date.now,
   }
 });
 // created model
-module.exports = mongoose.model("product", productSchema);
+module.exports = mongoose.model("product", productSchema,);
