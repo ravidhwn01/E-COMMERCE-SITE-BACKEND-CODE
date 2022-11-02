@@ -4,6 +4,7 @@ const  catchAsyncError = require("../middleware/catchAsyncError");
 const APIFeatures = require("../utils/apiFeatures");
 // create product -- admin ke liye
 exports.createProduct = catchAsyncError(async (req, res, next) => {
+  req.body.user = req.user.id;
   const product = await Product.create(req.body);
   res.status(201).json({
     status: true,
@@ -16,7 +17,7 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 
 // get all  product
 exports.getAllProducts = catchAsyncError( async (req, res) => {
-  const resPerPage = 2;// per page  etne page dikhne chahiye
+  const resPerPage = 3;// per page  etne page dikhne chahiye
   const productCount = await Product.countDocuments();
 
  const apiFeatures = new APIFeatures(Product.find(),req.query)
