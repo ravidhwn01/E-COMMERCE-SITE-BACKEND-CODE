@@ -4,7 +4,7 @@ const {isAuthenticationUser,authorizeRoles }= require("../middleware/auth");
 const router = express.Router();
 
 // we are creating routes 
-router.route("/products").get(getAllProducts);
+router.route("/products").get(isAuthenticationUser,authorizeRoles("admin"),getAllProducts);
 router.route("/product/new").post(isAuthenticationUser,createProduct);    // admin ke liye
 router.route("/product/:id").put(isAuthenticationUser,updateProduct);      // admin ke liye
 router.route("/product/:id").delete(isAuthenticationUser, deleteProduct);   // admin ke liye
