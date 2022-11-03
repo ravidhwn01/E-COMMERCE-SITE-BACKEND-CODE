@@ -5,21 +5,24 @@ const sendEmail  = async (options)=>{
 
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
-        service: process.env.SMPT_SERVICE,
+        // host: process.env.SMTP_HOST,
+        // port: process.env.SMTP_PORT,
+        service : process.env.SMPT_SERVICE,
+        secure: false, // true for 465, false for other ports
         auth: {
-            user: process.env.SMPT_EMAIL, // generated ethereal user
-            pass: process.env.SMPT_PASSWORD, // generated ethereal password
+            user: process.env.SMTP_EMAIL, // generated ethereal user
+            pass: process.env.SMTP_PASSWORD, // generated ethereal password
         },
     });
-    const mailOption = {
-        from: process.env.SMPT_EMAIL,
+    //mailOptions
+    const mailOptions = {
+        from: process.env.SMTP_EMAIL,
         to: options.email,
         subject: options.subject,
         text: options.message,
-
     }
      
-    await transporter.sendMail(mailOption);
+    await transporter.sendMail(mailOptions);
 
     
 }
