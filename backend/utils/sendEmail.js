@@ -1,6 +1,8 @@
 // nodemailer
+const dotenv  =  require("dotenv");
+dotenv.config({ path: "backend/config/config.env" });
 const nodemailer = require('nodemailer');
-
+// const environment = require("../config/")
 const sendEmail  = async (options)=>{
 
     // create reusable transporter object using the default SMTP transport
