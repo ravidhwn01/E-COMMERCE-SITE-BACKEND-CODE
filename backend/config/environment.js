@@ -7,3 +7,4 @@
 //    service: process.env.SMPT_SERVICE
 
 // }
+// isko setup krna hai

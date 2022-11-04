@@ -4,6 +4,8 @@ const User = require("../models/userModel");
 // token
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
+// crypto
+const crypto = require('crypto');
 // register a user
 exports.registerUser = catchAsyncError(async (req, res, next) => {
     const { name, email, password } = req.body;
@@ -99,3 +101,34 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
             return next(new ErrorHandler(error.message, 500))
         }
     })
+
+    // reset password
+    exports.resetPassword = catchAsyncError(async (req, res, next) => {
+        // creating  token hash
+        const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest("hex");
+        const user = await User.findOne({
+            resetPasswordToken,
+            resetPasswordExpire: { $gt: Date.now() }   
+        })
+        if (!user) {
+            return next(new ErrorHandler("Password reset token is invalid or has been expired", 400))
+        }
+        if (req.body.password !== req.body.confirmPassword) {
+            return next(new ErrorHandler("Password does not match", 400))
+        }
+        // setup new password
+        // ek bar use krne ke bad sab ko undefined kr denge
+        user.password = req.body.password;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        await user.save();
+        // password change kr liya to ab login bhi krega
+        sendToken(user,201,res);
+        // const token = user.getJwtToken();
+        // res.status(201).json({
+        //     status: true,
+        //     message: "password updated successfully",
+        //     token,
+        // })
+    }
+    )
