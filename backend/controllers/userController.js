@@ -123,7 +123,7 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
         user.resetPasswordExpire = undefined;
         await user.save();
         // password change kr liya to ab login bhi krega
-        sendToken(user,201,res);
+        sendToken(user,200,res);
         // const token = user.getJwtToken();
         // res.status(201).json({
         //     status: true,
@@ -133,8 +133,9 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     }
     )
 
-    // get user details
+    // get user details (user ko uski details change krni ho profile pic ,password, name etc.)
     exports.getUserProfile = catchAsyncError(async (req, res, next) => {
+        console.log(req.user.id)
         const user = await User.findById(req.user.id);
         res.status(200).json({
             status: true,

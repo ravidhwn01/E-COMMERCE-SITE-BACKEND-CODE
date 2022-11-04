@@ -1,6 +1,6 @@
 const express = require("express");
-// const {isAuthenticatedUser,authorizeRoles }= require("../middleware/auth");
-const { registerUser, loginUser,logout,forgotPassword, resetPassword,getUserProfile } = require("../controllers/userController");
+const { registerUser, loginUser,logout,forgotPassword, resetPassword, getUserProfile } = require("../controllers/userController");
+const {isAuthenticatedUser }= require("../middleware/auth");
 const router = express.Router();
 // we are creating routes 
 router.route("/register").post(registerUser);
@@ -11,7 +11,9 @@ router.route("/password/forgot").post(forgotPassword);
 router.route("/password/reset/:token").put(resetPassword);
 // logout route
 router.route("/logout").get(logout);
-// user profile
-router.route("/me").get(getUserProfile);
+// user details
+router.route("/me").get(isAuthenticatedUser,getUserProfile);   //oops! not working 
+
+// router.route("/me/:id").get(getUserProfile); // working for  given id
 // exports
 module.exports = router;
