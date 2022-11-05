@@ -181,4 +181,64 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
     }
 );
 
+// get all user (admin)
+exports.allUsers = catchAsyncError(async (req, res, next) => {
 
+    const users = await User.find();
+    res.status(200).json({
+        status: true,
+        message: "all users fetched successfully",
+        users,
+    });
+}
+);
+
+// get single user (admin)
+exports.getUserDetails = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        return next(new ErrorHandler(`User not found with id: ${req.params.id}`, 404));
+    }
+    res.status(200).json({
+        status: true,
+        message: "user fetched successfully",
+        user,
+    });
+}
+);
+
+
+//update user role by admin
+exports.updateUser = catchAsyncError(async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role,
+    };
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+    });
+    res.status(200).json({
+        status: true,
+        message: "user updated successfully",
+        user,
+    });
+}
+);
+
+// delete user by admin
+exports.deleteUser = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        return next(new ErrorHandler(`User not found with id: ${req.params.id}`, 404));
+    }
+    // remove user from cloudinary
+    await user.remove();
+    res.status(200).json({
+        status: true,
+        message: "user deleted successfully",
+    });
+}       
+);
