@@ -117,12 +117,14 @@ exports.createProductReview = catchAsyncError(async (req, res,next) => {
     product.reviews.push(review);
     product.numOfReviews = product.reviews.length;
   }
+  // avg rating
   product.ratings =
     product.reviews.reduce((acc, item) => item.rating + acc, 0) /
     product.reviews.length;
-  await product.save({ validateBeforeSave: false });
+  await product.save({ validateBeforeSave: false });  // disable validator
   res.status(200).json({
     status: true,
+    review,
   });
 }
 );
