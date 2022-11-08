@@ -13,11 +13,20 @@ const {
 const { isAuthenticationUser, authorizeRoles } = require("../middleware/auth");
 router.route("/order/new").post(isAuthenticationUser,newOrder);
 
-// get single order
-router.route("/order/:id").get(isAuthenticationUser,authorizeRoles("admin"),getSingleOrder);
+// get single order  - ADMIN
+router.route("/order/:id").get(isAuthenticationUser,getSingleOrder);
 
-// get logged in user orders
-router.route("/orders/me").get(isAuthenticationUser ,authorizeRoles("admin"),myOrders);
+// get logged in user orders  - ADMIN
+router.route("/orders/me").get(isAuthenticationUser, myOrders);
+
+// get all orders - ADMIN
+router.route("/admin/orders").get(isAuthenticationUser,authorizeRoles("admin"),allOrders);
+
+// update / process order - ADMIN
+router.route("/admin/order/:id").put(isAuthenticationUser,authorizeRoles("admin"),updateOrder);
+
+// delete order - ADMIN
+router.route("/admin/order/:id").delete(isAuthenticationUser,authorizeRoles("admin"),deleteOrder);
 
 
 //exports
