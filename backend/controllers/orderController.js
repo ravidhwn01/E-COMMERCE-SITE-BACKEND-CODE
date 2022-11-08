@@ -62,3 +62,44 @@ exports.myOrders = catchAsyncError(async (req, res, next) => {
     });
 }
 );
+
+// get all orders
+exports.allOrders = catchAsyncError(async (req, res, next) => {
+    //joins in mongo   user wale collection m se user ke name or email le lega uski id ke reference se
+    const orders = await Order.find();
+    
+    let totalAmount = 0;
+    
+    orders.forEach((order) => {
+        totalAmount += order.totalPrice;
+    });
+    
+    res.status(200).json({
+        success: true,
+        totalAmount,
+        orders,
+    });
+}
+);
+//update order status
+exports.updateOrder = catchAsyncError(async (req, res, next) => {
+    const order = await Order.findById(req.params.id);
+    
+    if (order.orderStatus === "Delivered") {
+        return next(new ErrorHandler("You have already delivered this order", 400));
+    }
+    // jab tak delivery nhi ho jati quantity  kam nhi krni 
+    order.orderItems.forEach(async (item) => {
+        await updateStock(item.product, item.quantity);
+    });
+    
+    order.orderStatus = req.body.status;
+    order.deliveredAt = Date.now();
+    
+    await order.save();
+    
+    res.status(200).json({
+        success: true,
+    });
+}
+);
