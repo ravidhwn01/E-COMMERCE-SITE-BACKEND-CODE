@@ -8,7 +8,7 @@ const options = {
   logoWidth: "20vmax",
   navColor1: "white",
   logoHoverSize: "10px",
-  logoHoverColor: "#eb4034",
+  logoHoverColor: "#white",
   link1Text: "Home",
   link2Text: "Products",
   link3Text: "Contact",
