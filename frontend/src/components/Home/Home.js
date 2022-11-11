@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.css";
-import { FaBars } from "@react-icons/all-files/fa/FaBars";
+import { CiCircleChevUp } from "react-icons/ci";
 function Home() {
   return (
     <>
@@ -9,10 +9,9 @@ function Home() {
         <h1>FIND AMAZING PRODUCTS BELOW</h1>
         <a href="#container">
           <button>
-          scroll &nbsp; <FaBars />
-           </button>
+            scroll &nbsp; <CiCircleChevUp />
+          </button>
         </a>
-
       </div>
     </>
   );
