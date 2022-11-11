@@ -18,8 +18,8 @@ function App() {
   return (
     <Router>
       <Header />
-    {/* <Route exact path="/" component = {Home} /> */}
-    <Home/>
+    <Route exact path="/" component = {Home} />
+    {/* <Home/> */}
       <Footer/>
     </Router>
   );
