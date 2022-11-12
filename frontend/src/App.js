@@ -11,7 +11,7 @@ function App() {
   React.useEffect(()=>{
     webfont.load({
       google: {
-        families: ['Roboto','Droid- sans', 'sans-serif']
+        families: ['Roboto','Droid Sans', 'Chilanka']
       }
     });
   },[])
@@ -19,7 +19,7 @@ function App() {
     <Router>
       <Header />
     <Route exact path="/" component = {Home} />
-    {/* <Home/> */}
+  
       <Footer/>
     </Router>
   );

@@ -16,15 +16,15 @@ export default function Footer() {
       <div className="midFooter">
           <h1>ECOMMERCE. </h1>
           <p>High Quality is our first priority</p>
-          <p>© 2020 Ecommerce. RaviDhawan </p>
+          <p>© 2022 Ecommerce. RaviDhawan </p>
       </div>
       {/*  Footer content right */}
       <div className="rightFooter">
         <h3>follow Us</h3>
         <p>Let us be social</p>
-       <a href=""> Instagram </a>
-       <a href=""> Youtube </a>
-       <a href="https://github.com/ravidhwn01"> Github </a>
+       <a href="https://www.instagram.com/_ravi_dhwn/" target="_blank" rel="noreferrer" > Instagram </a>
+       <a href="https://www.youtube.com/channel/UC-rEZAOdiqwqasyCgM9wyPA" target="_blank" rel="noreferrer" > Youtube </a>
+       <a href="https://github.com/ravidhwn01" target="_blank" rel="noreferrer" > Github </a>
       </div>
     </footer>
   );
